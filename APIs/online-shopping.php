@@ -1,17 +1,21 @@
 <?php
 
-	require_once 'inc/connection.inc.php';
 	require_once 'inc/function.inc.php';
 
 	$ebay_app_name = 'NSIT22619-c5e7-41ee-9311-cbde5b60ca2';
-	$url = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&RESPONSE-DATA-FORMAT=JSON&SECURITY-APPNAME=' . $ebay_app_name . '&REST-PAYLOAD&keywords=';
+	$url = 'http://svcs.ebay.com/services/search/FindingService/v1?
+		OPERATION-NAME=findItemsAdvanced&RESPONSE-DATA-FORMAT=JSON&
+		SECURITY-APPNAME=' . $ebay_app_name . '&
+		REST-PAYLOAD&
+		keywords=';
 
 	$final_response = array();
 
-	if(isset($_GET['string'])){
+	if (isset($_GET['string'])) {
 		$url .= trim(strtolower($_GET['string']));
-		$response = json_decode(curl_URL_call($url), true);
-		foreach($response['findItemsAdvancedResponse'][0]['searchResult'][0]['item'] as $item){
+		$response = json_decode(curl_url_call($url), true);
+
+		foreach ($response['findItemsAdvancedResponse'][0]['searchResult'][0]['item'] as $item) {
 			$item_value = (float)$item['sellingStatus'][0]['currentPrice'][0]['__value__'] * 6.638;
 			$temp_array = array(
 				'name'		=> $item['title'][0],
