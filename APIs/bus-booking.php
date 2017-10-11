@@ -59,7 +59,7 @@
 		} else {
 			echo json_encode(array('results' => $final_response));
 		}
+	} else {
+		// incorrect parameters passed
+		invalidParametesError();
 	}
-
-	// incorrect parameters passed
-	invalidParametesError();
